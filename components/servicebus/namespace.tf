@@ -1,5 +1,5 @@
 module "servicebus-namespace" {
-    providers = {
+  providers = {
     azurerm.private_endpoint = azurerm.private_endpoint
   }
   source                  = "git::https://github.com/hmcts/terraform-module-servicebus-namespace?ref=master"
