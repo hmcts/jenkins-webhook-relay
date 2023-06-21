@@ -93,3 +93,23 @@ stages:
               location: ${{ parameters.location }}
               tfVarsFile: "$(System.DefaultWorkingDirectory)/$(buildRepoSuffix)/environments/resourcegroup/${{ parameters.env }}.tfvars"
               planCommandOptions: "-var project=$(project) -var subscription_id=$(ARM_SUBSCRIPTION_ID)"
+
+  - stage: servicebus
+    displayName: "servicebus"
+    jobs:
+      - job: servicebus
+        steps:
+          - template: steps/set-build-repo-suffix-env-var.yaml@cnp-azuredevops-libraries           
+          - template: steps/terraform.yaml@cnp-azuredevops-libraries
+            parameters:
+              overrideAction: ${{ parameters.action }}
+              environment: ${{ parameters.env }}
+              component: "servicebus"
+              serviceConnection: $(serviceConnection)
+              terraformInitSubscription: ${{ variables.tfInitSub }}
+              product: $(product)
+              location: ${{ parameters.location }}
+              tfVarsFile: "$(System.DefaultWorkingDirectory)/$(buildRepoSuffix)/environments/servicebus/${{ parameters.env }}.tfvars"
+              planCommandOptions: "-var project=$(project) -var subscription_id=$(ARM_SUBSCRIPTION_ID)"
+
+              
