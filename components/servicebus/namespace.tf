@@ -1,5 +1,5 @@
 module "servicebus-namespace" {
-  source                  = "git@github.com:hmcts/terraform-module-servicebus-namespace?ref=master"
+  source                  = "git::https://github.com/hmcts/terraform-module-servicebus-namespace?ref=master"
   name                    = "${var.product}-${var.component}"
   resource_group_name     = data.azurerm_resource_group.rg.name
   location                = var.location
