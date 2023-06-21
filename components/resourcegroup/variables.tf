@@ -24,6 +24,6 @@ variable "expiresAfter" {
   default     = "3000-01-01"
 }
 
-variable "project"{
+variable "project" {
   description = "The name of the project."
 }
