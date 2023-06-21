@@ -1,0 +1,95 @@
+name: ${{ parameters.action }} - ${{ parameters.env }}.${{ parameters.location }}
+
+trigger: none
+
+resources:
+  repositories:
+  - repository: cnp-azuredevops-libraries
+    type: github
+    ref: refs/heads/master
+    name: hmcts/cnp-azuredevops-libraries
+    endpoint: 'hmcts'
+
+pool:
+  vmImage: "ubuntu-latest"
+
+
+
+parameters:
+  - name: action
+    displayName: action
+    type: string
+    default: "plan"
+    values:
+      - plan
+      - apply
+
+
+  - name: location
+    displayName: Location
+    type: string
+    default: "UK South"
+    values:
+      - "UK South"
+      - "UK West"
+
+  - name: env
+    displayName: Environment
+    type: string
+    default: "ptlsbox"
+    values:
+      - ptlsbox
+      - ptl
+ 
+
+variables:
+  - name: timeoutInMinutes
+    value: 60
+  - name: agentPool
+    value: ubuntu-20.04 
+  - name: project
+    value: cft
+  - name: serviceConnection
+    value: OPS-APPROVAL-GATE-${{ parameters.env }}-ENVS
+  - name: tfInitSub
+    value: "04d27a32-7a07-48b3-95b8-3c8691e1a263"
+  - name: product
+    value: "cft-platform"
+  - name: action
+    value: ${{ parameters.action }}
+  - template: vars/input-variables.yaml@cnp-azuredevops-libraries
+
+
+stages:
+
+  - stage: Precheck
+    jobs:
+      - job:
+        pool:
+          vmImage: ${{ variables.agentPool }}
+          timeoutInMinutes: ${{ variables.timeoutInMinutes }}
+        steps:
+          - template: steps/terraform-precheck.yaml@cnp-azuredevops-libraries
+            parameters:
+              keyvaultName: 'infra-vault-nonprod'
+              keyvaultSecret: 'azure-devops-token'
+              serviceConnection: 'DCD-CFT-Sandbox'
+              overrideAction: ${{ parameters.action }}
+
+  - stage: Resourcegroup
+    displayName: "Resourcegroup"
+    jobs:
+      - job: Resourcegroup
+        steps:
+          - template: steps/set-build-repo-suffix-env-var.yaml@cnp-azuredevops-libraries           
+          - template: steps/terraform.yaml@cnp-azuredevops-libraries
+            parameters:
+              overrideAction: ${{ parameters.action }}
+              environment: ${{ parameters.env }}
+              component: "resourcegroup"
+              serviceConnection: $(serviceConnection)
+              terraformInitSubscription: ${{ variables.tfInitSub }}
+              product: $(product)
+              location: ${{ parameters.location }}
+              tfVarsFile: "$(System.DefaultWorkingDirectory)/$(buildRepoSuffix)/environments/resourcegroup/${{ parameters.env }}.tfvars"
+              planCommandOptions: "-var project=$(project) -var subscription_id=$(ARM_SUBSCRIPTION_ID)"
