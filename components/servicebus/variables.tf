@@ -43,5 +43,5 @@ variable "cft_key_vault_rg_name" {
 }
 variable "component" {
   description = "Name of the component"
-  default = "sb"
+  default     = "sb"
 }
