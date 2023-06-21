@@ -1,4 +1,4 @@
-data "azurerm_resource_group" "rg"{
+data "azurerm_resource_group" "rg" {
   name = "github-jenkins-${var.project}-${var.env}-rg"
 }
 
