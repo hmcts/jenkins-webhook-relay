@@ -9,7 +9,7 @@ module "servicebus-namespace" {
   env                     = var.env
   common_tags             = module.ctags.common_tags
   project                 = var.project
-  enable_private_endpoint = var.servicebus_enable_private_endpoint
+  enable_private_endpoint = false
   zone_redundant          = true
 }
 
