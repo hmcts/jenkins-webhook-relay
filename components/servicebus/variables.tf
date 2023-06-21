@@ -41,3 +41,7 @@ variable "cft_key_vault_name" {
 variable "cft_key_vault_rg_name" {
   description = "Name of the keyvault resource group in CFT"
 }
+variable "component" {
+  description = "Name of the component"
+  default = "sb"
+}
