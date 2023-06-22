@@ -8,7 +8,7 @@ resource "azurerm_logic_app_workflow" "logic_app_workflow" {
     type = "SystemAssigned"
   }
 
-  tags = module.tags.common_tags
+  tags = module.ctags.common_tags
 }
 
 module "ctags" {
