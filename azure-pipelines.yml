@@ -112,4 +112,21 @@ stages:
               tfVarsFile: "$(System.DefaultWorkingDirectory)/$(buildRepoSuffix)/environments/servicebus/${{ parameters.env }}.tfvars"
               planCommandOptions: "-var project=$(project) -var subscription_id=$(ARM_SUBSCRIPTION_ID)"
 
-              
+
+  - stage: logicapp
+    displayName: "logicapp"
+    jobs:
+      - job: logapp
+        steps:
+          - template: steps/set-build-repo-suffix-env-var.yaml@cnp-azuredevops-libraries           
+          - template: steps/terraform.yaml@cnp-azuredevops-libraries
+            parameters:
+              overrideAction: ${{ parameters.action }}
+              environment: ${{ parameters.env }}
+              component: "logicapp"
+              serviceConnection: $(serviceConnection)
+              terraformInitSubscription: ${{ variables.tfInitSub }}
+              product: $(product)
+              location: ${{ parameters.location }}
+              tfVarsFile: "$(System.DefaultWorkingDirectory)/$(buildRepoSuffix)/environments/logicapp/${{ parameters.env }}.tfvars"
+              planCommandOptions: "-var project=$(project) -var subscription_id=$(ARM_SUBSCRIPTION_ID)"
