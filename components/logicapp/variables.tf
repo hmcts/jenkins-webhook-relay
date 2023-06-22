@@ -37,5 +37,5 @@ variable "cft_key_vault_rg_name" {
 
 variable "enable_workflow" {
   description = "Enable workflow"
-  default = true
+  default     = true
 }
