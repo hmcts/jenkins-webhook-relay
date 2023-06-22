@@ -9,8 +9,8 @@ module "servicebus-namespace" {
   env                     = var.env
   common_tags             = module.ctags.common_tags
   project                 = var.project
-  enable_private_endpoint = false
-  zone_redundant          = false
+  enable_private_endpoint = false #var.servicebus_enable_private_endpoint
+  zone_redundant          = var.zone_redundant
 }
 
 module "ctags" {

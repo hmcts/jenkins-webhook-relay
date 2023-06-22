@@ -27,21 +27,15 @@ variable "expiresAfter" {
 variable "project" {
   description = "The name of the project."
 }
-variable "servicebus_enable_private_endpoint" {
-  description = "Enable private endpoint."
-  default     = true
-}
-variable "queue_name" {
-  default     = "jenkins"
-  description = "Name of the servicebus Queue."
-}
+
 variable "cft_key_vault_name" {
   description = "Name of the keyvault in CFT to storage secrets"
 }
 variable "cft_key_vault_rg_name" {
-  description = "Name of the keyvault resource group in CFT."
+  description = "Name of the keyvault resource group in CFT"
 }
-variable "zone_redundant" {
-  description = "Enable Zone redundancy."
-  default     = false
+
+variable "enable_workflow" {
+  description = "Enable workflow"
+  default     = true
 }
