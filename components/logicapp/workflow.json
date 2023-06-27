@@ -1763,9 +1763,5 @@
         
     ],
     "outputs": {
-        "logicAppUrl": {
-           "type": "string",
-           "value": "[listCallbackURL(concat(resourceId('Microsoft.Logic/workflows/', [parameters('logic_app_name')]), '/triggers/manual'), '2017-07-01').value]"
-        }
      }
 }
