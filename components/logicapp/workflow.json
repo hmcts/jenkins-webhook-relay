@@ -1750,9 +1750,10 @@
                     "$connections": {
                         "value": {
                             "servicebus_1": {
-                                "connectionId": "[/subscriptions/parameters('subscription_id')/resourceGroups/parameters('rg')/providers/Microsoft.Web/connections/parameters(sb_con_name)]",
+                                "connectionId": "[resourceId('Microsoft.Web/connections', parameters('sb_con_name'))]",
                                 "connectionName": "servicebus-connection",
-                                "id": "[/subscriptions/parameters('subscription_id')/providers/Microsoft.Web/locations/uksouth/managedApis/servicebus]"
+                                "id": "[subscriptionResourceId('Microsoft.Web/locations/managedApis', parameters('workflows_location'), 'servicebus')]"
+                                
                             }
                         }
                     }
