@@ -15,7 +15,7 @@ resource "azurerm_api_connection" "connection" {
   tags = module.ctags.common_tags
 
   lifecycle {
-    
+
     ignore_changes = ["parameter_values"]
   }
 }
