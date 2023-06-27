@@ -6,10 +6,7 @@
             "defaultValue": "",
             "type": "string"
         },
-        "connections_servicebus_externalid": {
-            "defaultValue": "/subscriptions/[parameters('subscription_id')]/resourceGroups/[parameters('rg')]/providers/Microsoft.Web/connections/[parameters('sb_con_name')]",
-            "type": "string"
-        },
+
         "location": {
             "defaultValue": "uksouth",
             "type": "string" 
@@ -29,16 +26,8 @@
         "commonTags": {
             "defaultValue": "",
             "type": "string"
-        },
-        "$connections": {
-            "value": {
-                "servicebus_1": {
-                    "connectionId": "[parameters('connections_servicebus_externalid')]",
-                    "connectionName": "servicebus-connection",
-                    "id": "/subscriptions/[parameters('subscription_id')]/providers/Microsoft.Web/locations/uksouth/managedApis/servicebus"
-                }
-            }
         }
+
      },
     "variables": {
         "tags": "[base64ToJson(parameters('commonTags'))]"
@@ -1757,7 +1746,18 @@
                     },
                     "outputs": {}
                 },
-                "parameters": { }
+                "parameters": {
+                    "$connections": {
+                        "value": {
+                            "servicebus_1": {
+                                "connectionId": "/subscriptions/[parameters('subscription_id')]/resourceGroups/[parameters('rg')]/providers/Microsoft.Web/connections/[parameters('sb_con_name')]",
+                                "connectionName": "servicebus-connection",
+                                "id": "/subscriptions/[parameters('subscription_id')]/providers/Microsoft.Web/locations/uksouth/managedApis/servicebus"
+                            }
+                        }
+                    }
+
+                 }
             }
         }
         
@@ -1765,7 +1765,7 @@
     "outputs": {
         "logicAppUrl": {
            "type": "string",
-           "value": "[listCallbackURL(concat(resourceId('Microsoft.Logic/workflows/', 'HelloLogicAppsTemplate'), '/triggers/manual'), '2017-07-01').value]"
+           "value": "[listCallbackURL(concat(resourceId('Microsoft.Logic/workflows/', [parameters('logic_app_name')]), '/triggers/manual'), '2017-07-01').value]"
         }
      }
 }
