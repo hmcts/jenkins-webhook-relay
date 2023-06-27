@@ -1750,7 +1750,7 @@
                     "$connections": {
                         "value": {
                             "servicebus_1": {
-                                "connectionId": "/subscriptions/1497c3d7-ab6d-4bb7-8a10-b51d03189ee3/resourceGroups/[parameters('rg')]/providers/Microsoft.Web/connections/[parameters('sb_con_name')]",
+                                "connectionId": "/subscriptions/1497c3d7-ab6d-4bb7-8a10-b51d03189ee3/resourceGroups/[parameters('rg')]/providers/Microsoft.Web/connections/github-sb-jenkins-con",
                                 "connectionName": "servicebus-connection",
                                 "id": "/subscriptions/[parameters('subscription_id')]/providers/Microsoft.Web/locations/uksouth/managedApis/servicebus"
                             }
