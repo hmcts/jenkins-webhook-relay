@@ -1,0 +1,19 @@
+scaleType: Job
+aadIdentityName: "jenkins"
+triggerAuth:
+  create: true
+  enabled: true
+  triggerPodIdentityProvider: "azure"
+job:
+  parallelism: 1
+  completions: 1
+  activeDeadlineSeconds: 600 
+  backoffLimit: 6
+
+triggers:
+- type: azure-servicebus
+  serviceBusName: "github-jenkins-cft-ptl" 
+  queueName: "jenkins"
+  messageCount: 5
+function:
+  trigger-auth-name: "jenkins-webhook-relay"
