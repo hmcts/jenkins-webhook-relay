@@ -11,8 +11,8 @@ logging.basicConfig(level=logging.INFO, format='%(name)s - %(levelname)s - %(mes
 CONNECTION_STR = os.environ['SERVICE_BUS_CONNECTION_STR']
 QUEUE_NAME = os.environ["SERVICE_BUS_QUEUE_NAME"]
 CONNECTION_URL = os.environ["CONNECTION_URL"]
-MAX_MESSAGE_COUNT = os.getenv('MAX_MESSAGE_COUNT', default=10)
-MAX_WAIT_TIME = os.getenv('MAX_WAIT_TIME', default=60)
+MAX_MESSAGE_COUNT = os.getenv('MAX_MESSAGE_COUNT', default=100)
+MAX_WAIT_TIME = os.getenv('MAX_WAIT_TIME', default=5)
 
     
 async def main():
