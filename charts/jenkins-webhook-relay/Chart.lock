@@ -1,6 +1,0 @@
-dependencies:
-- name: function
-  repository: https://hmctspublic.azurecr.io/helm/v1/repo
-  version: 2.3.4
-digest: sha256:f3ccc599394ceab7ef0cf74614e580dcd0aff34a4e3f258b020103f3c091bc2d
-generated: "2023-07-06T14:34:53.30288+01:00"
