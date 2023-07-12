@@ -1,2 +1,5 @@
 # github-jenkins-integration
-Integrate github with jenkins using servicebus
+Python App to integrate Jenkins with Azure service bus Queue
+
+### Architecture Diagram
+![Architecture](architecture_diagram.png)
