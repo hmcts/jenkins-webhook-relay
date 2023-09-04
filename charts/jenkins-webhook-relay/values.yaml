@@ -5,7 +5,7 @@ function:
   triggerAuth:
     create: true
     enabled: true
-    triggerPodIdentityProvider: "azure"
+    triggerPodIdentityProvider: "azure-workload"
   job:
     parallelism: 1
     completions: 1
