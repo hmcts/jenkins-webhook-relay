@@ -20,6 +20,7 @@ async def main():
     logging.info("started receiving message") 
     servicebus_client = ServiceBusClient.from_connection_string(conn_str=CONNECTION_STR)
     headers = {'Content-type': 'application/json', 'X-GitHub-Event':'pull_request'}
+    headers_push = {'Content-type': 'application/json', 'X-GitHub-Event':'push'}
     headers_sonar = {'Content-type': 'application/json'}    
     async with servicebus_client:
         receiver = servicebus_client.get_queue_receiver(queue_name=QUEUE_NAME)
@@ -27,6 +28,16 @@ async def main():
             received_msgs = await receiver.receive_messages(max_message_count=int(MAX_MESSAGE_COUNT), max_wait_time=int(MAX_WAIT_TIME))
             for msg in received_msgs:
                 if "action" in json.loads(str(msg)):
+                    logging.info("Current msg: %s", json.loads(str(msg)))
+                    print(json.loads(str(msg))) 
+                    response = requests.post(url=CONNECTION_URL + "/github-webhook/", data=str(msg), headers=headers)
+                    logging.info("status_code: %s", response.status_code)
+                    print("status_code: ", response.status_code )
+                    print("\n")
+                    if (response.status_code == 200):
+                        await receiver.complete_message(msg)
+                        logging.info("Current msg has been deleted")
+                elif "pusher" in json.loads(str(msg)):
                     logging.info("Current msg: %s", json.loads(str(msg)))
                     print(json.loads(str(msg))) 
                     response = requests.post(url=CONNECTION_URL + "/github-webhook/", data=str(msg), headers=headers)
