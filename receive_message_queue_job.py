@@ -39,24 +39,12 @@ async def main():
                     headers = {'Content-type': 'application/json', 'X-GitHub-Event':'push'}
                     logging.info("Current msg: %s", json.loads(str(msg)))
                     print(json.loads(str(msg))) 
-                    headers = {'Content-type': 'application/json', 'X-GitHub-Event':'push'}
                     response = requests.post(url=CONNECTION_URL + "/github-webhook/", data=str(msg), headers=headers)
                     logging.info("status_code: %s", response.status_code)
                     print("status_code: ", response.status_code )
                     print("\n")
                     if (response.status_code == 200):
                         await receiver.complete_message(msg)
-                        logging.info("Current msg has been deleted")
-                elif "serverUrl" in json.loads(str(msg)):
-                    headers = {'Content-type': 'application/json'}
-                    logging.info("Current msg: %s", json.loads(str(msg)))
-                    print(json.loads(str(msg))) 
-                    response = requests.post(url=CONNECTION_URL + "/sonarqube-webhook/", data=str(msg), headers=headers)
-                    logging.info("status_code: %s", response.status_code)
-                    print("status_code: ", response.status_code)
-                    print("\n")
-                    if (response.status_code == 200):
-                        await receiver.complete_message(msg) 
                         logging.info("Current msg has been deleted")
                 else:
                     logging.warning("Current msg will be deleted without processing")
